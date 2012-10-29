@@ -1,6 +1,10 @@
 {
     "name": "tailing-stream",
-    "author": "Jason T. Bradshaw <jasontbradshaw@gmail.com> (http://jasontbradshaw.com/)",
+    "author": {
+        "name": "Jason T. Bradshaw",
+        "email": "jasontbradshaw@gmail.com",
+        "url": "http://jasontbradshaw.com/"
+    },
     "description": "Read a growing file continuously as a Stream.",
     "version": "0.0.2",
     "keywords": [
@@ -13,7 +17,12 @@
         "streaming",
         "watch"
     ],
+    "bugs": "https://github.com/jasontbradshaw/tailing-stream",
     "main": "tailing-stream.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jasontbradshaw/tailing-stream.git"
+    },
     "engines": {
         "node": ">=0.6.0"
     }
