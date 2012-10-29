@@ -29,14 +29,14 @@ var extend = function (preserveExistingProperties) {
     return result;
 }
 
-var GrowingReadableStream = function () {
+var TailingReadableStream = function () {
     // run Stream's init code on us, since we're a Stream
     Stream.call(this);
 
     // whether the stream can be read from
     this.readable = true;
 
-    // time before a growing file is considered 'done'
+    // time before a tailing file is considered 'done'
     this.timeout = 5000;
 
     // options passed to created ReadableStreams
@@ -52,19 +52,19 @@ var GrowingReadableStream = function () {
 };
 
 // 'inherit' from Stream
-GrowingReadableStream.prototype = Object.create(Stream.prototype, {
+TailingReadableStream.prototype = Object.create(Stream.prototype, {
     constructor: {
-        value: GrowingReadableStream,
+        value: TailingReadableStream,
         enumerable: false
     }
 });
-extend(true, GrowingReadableStream, Stream);
+extend(true, TailingReadableStream, Stream);
 
-// create a new GrowingReadableStream and return it
-GrowingReadableStream.open = function (path, options) {
+// create a new TailingReadableStream and return it
+TailingReadableStream.open = function (path, options) {
     options = options || {};
 
-    var file = new GrowingReadableStream();
+    var file = new TailingReadableStream();
 
     // override the timeout if present in options
     if (Object.hasOwnProperty(options, 'timeout')) {
@@ -87,7 +87,7 @@ GrowingReadableStream.open = function (path, options) {
 };
 
 // start watching the file for size changes
-GrowingReadableStream.prototype._watch = function () {
+TailingReadableStream.prototype._watch = function () {
     var self = this;
 
     // watch the file for changes
@@ -138,7 +138,7 @@ GrowingReadableStream.prototype._watch = function () {
 };
 
 // update the encoding of data sent to 'data' events
-GrowingReadableStream.prototype.setEncoding = function (encoding) {
+TailingReadableStream.prototype.setEncoding = function (encoding) {
     // set the default
     encoding = encoding || 'utf8';
 
@@ -152,7 +152,7 @@ GrowingReadableStream.prototype.setEncoding = function (encoding) {
 };
 
 // pause stream reading for a while
-GrowingReadableStream.prototype.pause = function () {
+TailingReadableStream.prototype.pause = function () {
     if (!this._paused) {
         this._paused = true;
 
@@ -172,7 +172,7 @@ GrowingReadableStream.prototype.pause = function () {
 };
 
 // resume watching/reading from the file
-GrowingReadableStream.prototype.resume = function () {
+TailingReadableStream.prototype.resume = function () {
     if (this._paused) {
         this._paused = false;
 
@@ -185,7 +185,7 @@ GrowingReadableStream.prototype.resume = function () {
 };
 
 // start checking for changes, clearing any existing checks
-GrowingReadableStream.prototype._resetTimeoutKillswitch = function () {
+TailingReadableStream.prototype._resetTimeoutKillswitch = function () {
     // set a timeout to check for non-activity. setTimeout() is used to allow
     // the user to dynamically change the timeout duration, if desired.
     clearTimeout(this._timeoutId);
@@ -198,14 +198,14 @@ GrowingReadableStream.prototype._resetTimeoutKillswitch = function () {
 };
 
 // emit an 'end' event, then destroy the stream
-GrowingReadableStream.prototype._timeoutKillswitch = function () {
+TailingReadableStream.prototype._timeoutKillswitch = function () {
     this.destroy();
     this.emit('end');
     this.emit('close');
 };
 
 // stop watching/reading the file and stop emitting events
-GrowingReadableStream.prototype.destroy = function () {
+TailingReadableStream.prototype.destroy = function () {
     // pause to stop the watcher and clear the kill switch
     this.pause();
 
@@ -220,11 +220,11 @@ GrowingReadableStream.prototype.destroy = function () {
     this._paused = false;
 };
 
-// build a growing readable stream given a path and some options
-var createGrowingReadStream = function (path, options) {
-    return GrowingReadableStream.open(path, options);
+// build a tailing readable stream given a path and some options
+var createTailingReadStream = function (path, options) {
+    return TailingReadableStream.open(path, options);
 };
 
 // exports
-module.exports.createReadStream = createGrowingReadStream;
-module.exports.GrowingReadableStream = GrowingReadableStream;
+module.exports.createReadStream = createTailingReadStream;
+module.exports.TailingReadableStream = TailingReadableStream;
