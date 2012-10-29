@@ -76,8 +76,9 @@ TailingReadableStream.open = function (path, options) {
         file._offset = options.start;
     }
 
-    // store options for use when opening ReadableStreams
+    // store options for use when opening ReadableStreams, sans 'end'
     extend(false, file._read_stream_options, options);
+    delete file._read_stream_options.end;
 
     file._path = path;
     file._watch();
