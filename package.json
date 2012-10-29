@@ -1,0 +1,10 @@
+{
+    "name": "growing-file",
+    "author": "Jason T. Bradshaw <jasontbradshaw@gmail.com> (http://jasontbradshaw.com/)",
+    "description": "Read a growing file continuously as a Stream."
+    "version": "0.0.1",
+    "main": "growing-file.js",
+    "engines": {
+        "node": ">=0.6.0"
+    }
+}
