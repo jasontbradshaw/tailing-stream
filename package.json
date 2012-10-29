@@ -2,7 +2,7 @@
     "name": "tailing-stream",
     "author": "Jason T. Bradshaw <jasontbradshaw@gmail.com> (http://jasontbradshaw.com/)",
     "description": "Read a growing file continuously as a Stream.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "tailing-stream.js",
     "engines": {
         "node": ">=0.6.0"
