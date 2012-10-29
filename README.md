@@ -6,7 +6,7 @@ to the standard
 method, which returns a `ReadableStream` that stops reading once it gets to the
 last byte that existed at the time the stream was originally opened. It supports
 exactly the same interface as a Node
-[ReadableStream](http://nodejs.org/api/stream.html#stream_readable_stream), and
+[`ReadableStream`](http://nodejs.org/api/stream.html#stream_readable_stream), and
 its `createReadStream` method functions the same as `fs.createReadStream`.
 
 ## Interface ##
