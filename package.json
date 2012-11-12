@@ -6,7 +6,7 @@
         "url": "http://jasontbradshaw.com/"
     },
     "description": "Read a growing file continuously as a Stream.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "keywords": [
         "grow",
         "growing",
