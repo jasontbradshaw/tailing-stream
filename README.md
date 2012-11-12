@@ -11,8 +11,8 @@ its `createReadStream` method functions the same as `fs.createReadStream`.
 
 ## Interface ##
 A `TailingReadableStream` supports all the same methods and configuration
-options as a normal `ReadableStream`, so I suggest you go
-[there](http://nodejs.org/api/stream.html#stream_readable_stream) if you're
+options as a normal `ReadableStream`, so I suggest you read
+[the node documentation](http://nodejs.org/api/stream.html#stream_readable_stream) if you're
 looking for a detailed description. The only difference is that a
 `TailingReadableStream` doesn't recognize the `end` option, since it wouldn't
 make much sense to create one if you planned to stop reading at a predetermined
