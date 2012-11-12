@@ -1,5 +1,4 @@
 var fs = require('fs');
-var pathlib = require('path');
 var Stream = require('stream').Stream;
 
 // copy properties from right-most args to left-most
