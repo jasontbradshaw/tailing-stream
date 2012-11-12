@@ -111,7 +111,7 @@ TailingReadableStream.prototype._watch = function () {
 
       // forward errors and close the stream when received
       self._stream.on('error', function (exception) {
-        self.destroy();
+        self._destroy();
         self.emit('error', exception);
         self.emit('close');
       });
@@ -127,7 +127,7 @@ TailingReadableStream.prototype._watch = function () {
 
   // destroy then forward errors
   this._watcher.on('error', function (exception) {
-    self.destroy();
+    self._destroy();
     self.emit('error', exception);
     self.emit('close');
   });
@@ -196,15 +196,8 @@ TailingReadableStream.prototype._resetTimeoutKillswitch = function () {
   }
 };
 
-// emit an 'end' event, then destroy the stream
-TailingReadableStream.prototype._timeoutKillswitch = function () {
-  this.destroy();
-  this.emit('end');
-  this.emit('close');
-};
-
 // stop watching/reading the file and stop emitting events
-TailingReadableStream.prototype.destroy = function () {
+TailingReadableStream.prototype._destroy = function () {
   // pause to stop the watcher and clear the kill switch
   this.pause();
 
@@ -217,6 +210,19 @@ TailingReadableStream.prototype.destroy = function () {
   // mark that we're no longer readable or paused
   this.readable = false;
   this._paused = false;
+};
+
+// shut down the stream and emit end and close events
+TailingReadableStream.prototype._timeoutKillswitch = function () {
+  this._destroy();
+  this.emit('end');
+  this.emit('close');
+};
+
+// destroy the stream
+TailingReadableStream.prototype.destroy = function () {
+  this._destroy();
+  this.emit('close');
 };
 
 // build a tailing readable stream given a path and some options
