@@ -5,6 +5,11 @@
         "email": "jasontbradshaw@gmail.com",
         "url": "http://jasontbradshaw.com/"
     },
+    "contributors": [{
+        "name": "Nick Arnold",
+        "email": "nicholasjarnold@gmail.com",
+        "url": "https://nickarnold.name"
+    }],
     "description": "Read a growing file continuously as a Stream.",
     "version": "0.0.4",
     "keywords": [

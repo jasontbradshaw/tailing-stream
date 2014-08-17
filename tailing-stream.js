@@ -14,10 +14,10 @@ var extend = function (preserveExistingProperties) {
     }
 
     for (prop in obj) {
-      if (Object.hasOwnProperty(obj, prop)) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) {
         // preserve preexisting child properties if specified
         if (preserveExistingProperties &&
-            Object.hasOwnProperty(result, prop)) {
+            Object.prototype.hasOwnProperty.call(result, prop)) {
               continue;
             }
         result[prop] = obj[prop];
@@ -66,13 +66,18 @@ TailingReadableStream.open = function (path, options) {
   var file = new TailingReadableStream();
 
   // override the timeout if present in options
-  if (Object.hasOwnProperty(options, 'timeout')) {
+  if (Object.prototype.hasOwnProperty.call(options, 'timeout')) {
     file.timeout = options.timeout;
   }
 
   // set the reading start point if specified
-  if (Object.hasOwnProperty(options, 'start')) {
+  if (Object.prototype.hasOwnProperty.call(options, 'start')) {
     file._offset = options.start;
+  }
+
+  // do not start emitting data events if specified and true
+  if (Object.prototype.hasOwnProperty.call(options, 'startPaused')) {
+    file._paused = options.startPaused;
   }
 
   // store options for use when opening ReadableStreams, sans 'end'
@@ -80,7 +85,9 @@ TailingReadableStream.open = function (path, options) {
   delete file._read_stream_options.end;
 
   file._path = path;
-  file._watch();
+  if (!file._paused) {
+    file._watch();
+  }
 
   return file;
 };

@@ -18,15 +18,29 @@ looking for a detailed description. The only difference is that a
 make much sense to create one if you planned to stop reading at a predetermined
 point!
 
-It takes one unique configuration option, `timeout`. This specifies the amount
-of time in milliseconds that should elapse before a file is considered to have
-'finished' tailing. If omitted, it defaults to 5000ms. If set to a falsy value,
-the timeout is disabled and the stream will wait indefinitely for new content to
-arrive. Beware: if the timeout is set too low (say, to 1ms), the stream could
-very well close files that are still being written to if 'data' events don't
-come in quickly enough.
+### TailingReadableStream Constructor ###
+It takes two unique configuration options, `timeout` and `pause`. 
 
-If a timeout occurs, an `end` event is sent to replicate the file closing.
+**timeout**
+
+ * A Number that specifies the amount of time in milliseconds that should elapse before a file 
+ is considered to have 'finished' tailing. If omitted, it defaults to 5000ms. If 
+ set to a falsy value, the timeout is disabled and the stream will wait indefinitely
+ for new content to arrive. Beware: if the timeout is set too low (say, to 1ms), 
+ the stream could very well close files that are still being written to if 'data' 
+ events don't come in quickly enough.
+
+* If a timeout occurs, an `end` event is sent to replicate the file closing.
+
+**startPaused**
+
+* A Boolean that when set to `true` will prevent the underlying stream from immediately 
+instantiating in addition to preventing `fs.watch` from emitting `data` events. Defaults
+to `false`.
+
+* _NOTE_: If this option is set to `true` you must call `resume()` on your stream object 
+in order to lazily instantiate the underlying stream and begin watching it for changes. 
+
 
 ## Implementation ##
 Internally, `TailingReadableStream` uses the
