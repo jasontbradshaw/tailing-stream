@@ -163,8 +163,10 @@ TailingReadableStream.prototype.pause = function () {
     this._paused = true;
 
     // stop watching the file (restarts when resume is called)
-    this._watcher.close();
-    this._watcher = null;
+    if (this._watcher) {
+      this._watcher.close();
+      this._watcher = null;
+    }
 
     // clear the timeout kill switch
     clearTimeout(this._timeoutId);
