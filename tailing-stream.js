@@ -1,5 +1,5 @@
 var fs = require('fs');
-var Stream = require('stream').Stream;
+var Readable = require('stream').Readable;
 
 // copy properties from right-most args to left-most
 var extend = function (preserveExistingProperties) {
@@ -29,8 +29,8 @@ var extend = function (preserveExistingProperties) {
 }
 
 var TailingReadableStream = function () {
-  // run Stream's init code on us, since we're a Stream
-  Stream.call(this);
+  // run Readable's init code on us, since we're a Readable
+  Readable.call(this);
 
   // whether the stream can be read from
   this.readable = true;
@@ -50,14 +50,14 @@ var TailingReadableStream = function () {
   this._paused = false;
 };
 
-// 'inherit' from Stream
-TailingReadableStream.prototype = Object.create(Stream.prototype, {
+// 'inherit' from Readable
+TailingReadableStream.prototype = Object.create(Readable.prototype, {
   constructor: {
     value: TailingReadableStream,
   enumerable: false
   }
 });
-extend(true, TailingReadableStream, Stream);
+extend(true, TailingReadableStream, Readable);
 
 // create a new TailingReadableStream and return it
 TailingReadableStream.open = function (path, options) {
