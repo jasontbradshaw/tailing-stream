@@ -1,34 +1,36 @@
 {
-    "name": "tailing-stream",
-    "author": {
-        "name": "Jason T. Bradshaw",
-        "email": "jasontbradshaw@gmail.com",
-        "url": "http://jasontbradshaw.com/"
-    },
-    "contributors": [{
-        "name": "Nick Arnold",
-        "email": "nicholasjarnold@gmail.com",
-        "url": "https://nickarnold.name"
-    }],
-    "description": "Read a growing file continuously as a Stream.",
-    "version": "0.1.1",
-    "keywords": [
-        "grow",
-        "growing",
-        "file",
-        "tail",
-        "tailing",
-        "stream",
-        "streaming",
-        "watch"
-    ],
-    "bugs": "https://github.com/jasontbradshaw/tailing-stream",
-    "main": "tailing-stream.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jasontbradshaw/tailing-stream.git"
-    },
-    "engines": {
-        "node": ">=0.6.0"
+  "name": "tailing-stream",
+  "author": {
+    "name": "Jason T. Bradshaw",
+    "email": "jasontbradshaw@gmail.com",
+    "url": "http://jasontbradshaw.com/"
+  },
+  "contributors": [
+    {
+      "name": "Nick Arnold",
+      "email": "nicholasjarnold@gmail.com",
+      "url": "https://nickarnold.name"
     }
+  ],
+  "description": "Read a growing file continuously as a Stream.",
+  "version": "0.2.0",
+  "keywords": [
+    "grow",
+    "growing",
+    "file",
+    "tail",
+    "tailing",
+    "stream",
+    "streaming",
+    "watch"
+  ],
+  "bugs": "https://github.com/jasontbradshaw/tailing-stream",
+  "main": "tailing-stream.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasontbradshaw/tailing-stream.git"
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  }
 }
